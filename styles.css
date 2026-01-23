@@ -309,8 +309,13 @@ main {
   color: rgba(42, 38, 38, 0.78);
 }
 
+.event-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .event-link {
-  justify-self: start;
   padding: 10px 18px;
   border-radius: 999px;
   border: 2px solid var(--color-border-strong);
@@ -318,6 +323,11 @@ main {
   font-weight: 700;
   color: var(--color-ink);
   background: var(--color-surface-panel);
+}
+
+.event-link.accent {
+  border-color: var(--color-accent-primary);
+  box-shadow: 0 10px 22px rgba(62, 217, 198, 0.25);
 }
 
 .status-grid {
