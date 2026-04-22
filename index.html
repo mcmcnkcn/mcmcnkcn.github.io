@@ -1,206 +1,1001 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>mcmcnkcn | 盆栽とﾓﾁﾓﾁﾈｺﾁｬﾝ</title>
-    <meta
-      name="description"
-      content="盆栽とﾓﾁﾓﾁﾈｺﾁｬﾝのカワイイローグライト。カードを選ぶたび、盆栽の未来が変わる。"
-    />
-    <meta property="og:title" content="mcmcnkcn | 盆栽とﾓﾁﾓﾁﾈｺﾁｬﾝ" />
-    <meta
-      property="og:description"
-      content="盆栽とﾓﾁﾓﾁﾈｺﾁｬﾝのカワイイローグライト。カードを選ぶたび、盆栽の未来が変わる。"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://mcmcnkcn.github.io/" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="bg-orbit" aria-hidden="true"></div>
-    <header class="site-header">
-      <div class="brand">
-        <span class="brand-mark">mcmcnkcn</span>
-        <span class="brand-sub">Bonsai Roguelite</span>
+<head>
+<meta charset="utf-8" />
+<title>ﾓﾁﾓﾁﾈｺﾁｬﾝ ― 盆栽育成カードゲーム</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#a2cdc9" />
+<meta name="description" content="ある日、盆栽の庭に ﾓﾁﾓﾁﾈｺﾁｬﾝ が現れ、静かな手入れの時間が少しずつ侵食されていく ― 盆栽育成カードゲーム『ﾓﾁﾓﾁﾈｺﾁｬﾝ』特設サイト。 2026/04/25 ぶらり川越 GAME DIGG2 出展 (ブース D-02)。" />
+<meta property="og:title" content="ﾓﾁﾓﾁﾈｺﾁｬﾝ" />
+<meta property="og:description" content="盆栽育成カードゲーム。 2026/04/25 ぶらり川越 GAME DIGG2 出展 (D-02)" />
+<meta property="og:image" content="./assets/img/still/006.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" type="image/x-icon" href="./favicon.ico" />
+<link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+
+<style>
+@font-face {
+  font-family: "Mochiy Pop P One Hankaku";
+  src: url("./assets/fonts/MochiyPopPOne-Regular-Hankaku.ttf") format("truetype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Zen Maru Gothic";
+  src: url("./assets/fonts/ZenMaruGothic-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --mochi-white: #fafeff;
+  --mochi-aqua: #a2cdc9;
+  --mochi-lavender: #c9b7ff;
+  --mochi-mint: #3ed9c6;
+  --mochi-mint-deep: #2fb9a6;
+  --mochi-navy: #34465a;
+  --mochi-berry: #d86bb3;
+  --mochi-rose: #ff2172;
+  --mochi-ink: #2a2626;
+
+  --bg: var(--mochi-aqua);
+  --surface: var(--mochi-white);
+  --ink: var(--mochi-ink);
+  --accent: var(--mochi-rose);
+  --accent-soft: var(--mochi-berry);
+  --mint: var(--mochi-mint);
+  --mint-deep: var(--mochi-mint-deep);
+  --lavender: var(--mochi-lavender);
+  --navy: var(--mochi-navy);
+
+  --font-pop: "Mochiy Pop P One Hankaku", "Zen Maru Gothic", sans-serif;
+  --font-body: "Zen Maru Gothic", "Mochiy Pop P One Hankaku", "Hiragino Sans", system-ui, sans-serif;
+
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 10px;
+
+  --shadow-soft: 0 10px 40px -12px rgba(52, 70, 90, 0.25);
+  --shadow-ink: 0 6px 0 0 var(--mochi-ink);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg);
+  font-feature-settings: "palt";
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(201, 183, 255, 0.5), transparent 55%),
+    radial-gradient(ellipse at 80% 90%, rgba(255, 33, 114, 0.14), transparent 60%),
+    var(--bg);
+  min-height: 100vh;
+  position: relative;
+}
+
+img {
+  image-rendering: pixelated;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+::selection { background: var(--accent); color: var(--mochi-white); }
+
+/* === ambient paw particles drifting behind everything === */
+.particle-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.particle {
+  position: absolute;
+  width: 28px; height: 28px;
+  opacity: 0;
+  animation: drift linear infinite;
+}
+.particle.shine { width: 18px; height: 18px; }
+.particle.star  { width: 22px; height: 22px; }
+@keyframes drift {
+  0%   { opacity: 0; transform: translateY(20vh) rotate(0deg) scale(0.8); }
+  15%  { opacity: 0.6; }
+  80%  { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-110vh) rotate(360deg) scale(1.1); }
+}
+
+/* === page === */
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2.4rem 1.6rem 6rem;
+}
+
+/* === top ribbon === */
+.ribbon {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 1.1rem;
+  border: 2px solid var(--navy);
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  font-family: var(--font-pop);
+  font-size: 0.95rem;
+}
+.ribbon .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+}
+.ribbon .brand img { width: 28px; height: 28px; }
+.ribbon .links {
+  display: inline-flex;
+  gap: 1.2rem;
+  font-size: 0.85rem;
+  color: var(--navy);
+}
+.ribbon a { color: inherit; text-decoration: none; }
+.ribbon a:hover { color: var(--accent); }
+@media (max-width: 560px) {
+  .ribbon .links { display: none; }
+}
+
+/* === HERO === */
+.hero {
+  position: relative;
+  margin: 3rem 0 5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+}
+@media (min-width: 880px) {
+  .hero { grid-template-columns: 1.05fr 0.95fr; }
+}
+
+.hero-art {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 3px solid var(--navy);
+  background:
+    url("./assets/img/bg-title.gif") center / cover no-repeat,
+    var(--bg);
+  box-shadow: var(--shadow-soft), var(--shadow-ink);
+  animation: breathe 6s ease-in-out infinite;
+}
+.hero-art::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(255,255,255,0.03) 0 2px,
+    rgba(0,0,0,0.05) 2px 4px
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+@keyframes breathe {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+.hero-copy { display: grid; gap: 1.4rem; }
+.hero-tag {
+  display: inline-flex;
+  gap: 0.6rem;
+  align-items: center;
+  width: fit-content;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: var(--lavender);
+  color: var(--navy);
+  font-family: var(--font-pop);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  border: 2px solid var(--navy);
+}
+.hero-tag .dot {
+  display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(255,33,114,0.22);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(255,33,114,0.22); }
+  50%      { box-shadow: 0 0 0 8px rgba(255,33,114,0.05); }
+}
+
+.hero h1 {
+  font-family: var(--font-pop);
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  line-height: 1.05;
+  margin: 0;
+  color: var(--accent);
+  text-shadow:
+    3px 3px 0 var(--mochi-white),
+    6px 6px 0 var(--navy);
+  letter-spacing: 0.02em;
+}
+.hero h1 small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  letter-spacing: 0.4em;
+  color: var(--navy);
+  text-shadow: none;
+  margin-top: 0.6rem;
+}
+
+.hero-lede {
+  font-size: 1.08rem;
+  line-height: 1.9;
+  color: var(--navy);
+  margin: 0;
+}
+.hero-lede em {
+  font-style: normal;
+  font-family: var(--font-pop);
+  color: var(--accent);
+  background: linear-gradient(transparent 60%, rgba(255, 33, 114, 0.18) 60%);
+  padding: 0 0.15em;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.95rem 1.5rem;
+  font-family: var(--font-pop);
+  font-size: 1rem;
+  text-decoration: none;
+  border: 3px solid var(--navy);
+  border-radius: 999px;
+  color: var(--navy);
+  background: var(--surface);
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  box-shadow: 0 4px 0 0 var(--navy);
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 0 var(--navy); }
+.btn:active { transform: translateY(2px); box-shadow: 0 1px 0 0 var(--navy); }
+.btn.primary {
+  background: var(--accent);
+  color: var(--mochi-white);
+  border-color: var(--navy);
+}
+.btn.primary::after {
+  content: "";
+  width: 18px; height: 18px;
+  background: url("./assets/img/particle/paw.png") center / contain no-repeat;
+}
+.btn.ghost {
+  background: transparent;
+}
+
+/* === EVENT BANNER === */
+.event {
+  position: relative;
+  margin: 4rem 0 5rem;
+  padding: 2rem;
+  border: 3px solid var(--navy);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.5)),
+    repeating-linear-gradient(45deg, transparent 0 18px, rgba(255, 33, 114, 0.08) 18px 20px),
+    var(--lavender);
+  box-shadow: var(--shadow-ink);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.4rem;
+  align-items: center;
+}
+@media (max-width: 760px) {
+  .event { grid-template-columns: 1fr; text-align: center; }
+}
+.event-glyph {
+  position: relative;
+  width: 110px; height: 110px;
+  display: grid; place-items: center;
+  background: var(--accent);
+  border: 3px solid var(--navy);
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 0 0 var(--navy);
+  animation: wobble 4s ease-in-out infinite;
+}
+@media (max-width: 760px) { .event-glyph { margin: 0 auto; } }
+@keyframes wobble {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+.event-glyph img { width: 78%; image-rendering: pixelated; }
+.event-body { display: grid; gap: 0.35rem; }
+.event-eyebrow {
+  font-family: var(--font-pop);
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  color: var(--accent);
+}
+.event-title {
+  font-family: var(--font-pop);
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  color: var(--navy);
+  margin: 0;
+  line-height: 1.3;
+}
+.event-meta {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1rem;
+  font-size: 0.95rem;
+  color: var(--navy);
+}
+.event-meta span { display: inline-flex; align-items: center; gap: 0.3rem; }
+.event-meta strong { font-family: var(--font-pop); color: var(--accent); }
+.event-cta { text-align: right; }
+@media (max-width: 760px) { .event-cta { text-align: center; } }
+
+/* === SECTION shared === */
+.section { margin: 6rem 0; position: relative; }
+.section-head {
+  display: grid; gap: 0.4rem;
+  margin-bottom: 2.2rem;
+  text-align: center;
+}
+.section-eyebrow {
+  font-family: var(--font-pop);
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  color: var(--accent);
+}
+.section-title {
+  font-family: var(--font-pop);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  color: var(--navy);
+  margin: 0;
+}
+.divider {
+  display: block;
+  width: 220px;
+  height: 12px;
+  margin: 0.3rem auto 0;
+  background: url("./assets/img/divider-zigzag.svg") repeat-x;
+  background-size: 24px 12px;
+  opacity: 0.5;
+}
+
+/* === ABOUT === */
+.about {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+  background: var(--surface);
+  border: 3px solid var(--navy);
+  border-radius: var(--radius-lg);
+  padding: 2.4rem;
+  box-shadow: var(--shadow-ink);
+}
+@media (min-width: 820px) {
+  .about { grid-template-columns: 1.2fr 0.8fr; gap: 3rem; }
+}
+.about p {
+  font-size: 1.08rem;
+  line-height: 2;
+  margin: 0 0 1rem;
+  color: var(--navy);
+}
+.about p strong {
+  font-family: var(--font-pop);
+  color: var(--accent);
+  font-weight: 400;
+}
+.about-specs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem;
+  margin-top: 1rem;
+  padding-top: 1.2rem;
+  border-top: 2px dashed var(--mint-deep);
+}
+.spec {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--navy);
+}
+.spec dt {
+  font-family: var(--font-pop);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+}
+.spec dd {
+  margin: 0;
+  font-family: var(--font-pop);
+  font-size: 1.1rem;
+  color: var(--navy);
+}
+.about-bonsai {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--bg);
+  border-radius: var(--radius-md);
+  border: 2px solid var(--navy);
+  overflow: hidden;
+}
+.about-bonsai .layer {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.about-bonsai .soil     { background-image: url("./assets/img/bonsai/soil.png"); }
+.about-bonsai .pot      { background-image: url("./assets/img/bonsai/pot.png"); }
+.about-bonsai .trunk    { background-image: url("./assets/img/bonsai/trunk.png"); }
+.about-bonsai .branch-l { background-image: url("./assets/img/bonsai/branch-left.png"); transform: translate(-6%, -10%); }
+.about-bonsai .branch-r { background-image: url("./assets/img/bonsai/branch-right.png"); transform: translate(6%, -10%); }
+.about-bonsai .cat {
+  position: absolute;
+  width: 34%; height: 34%;
+  bottom: 30%;
+  left: 55%;
+  background-image: url("./assets/img/mochineko/a.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: hover-cat 3.2s ease-in-out infinite;
+}
+@keyframes hover-cat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-8px) rotate(3deg); }
+}
+.about-bonsai .cat-mini {
+  position: absolute;
+  width: 18%; height: 18%;
+  top: 14%;
+  left: 18%;
+  background-image: url("./assets/img/mochineko/d.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: hover-cat 4.1s ease-in-out infinite reverse;
+}
+
+/* === FEATURES === */
+.features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.2rem;
+}
+@media (min-width: 820px) {
+  .features { grid-template-columns: repeat(3, 1fr); }
+}
+.feature {
+  position: relative;
+  padding: 2rem 1.6rem 1.6rem;
+  background: var(--surface);
+  border: 3px solid var(--navy);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-ink);
+  display: grid;
+  gap: 0.8rem;
+  align-content: start;
+  transition: transform 180ms ease;
+}
+.feature:hover { transform: translateY(-4px) rotate(-0.6deg); }
+.feature .num {
+  position: absolute;
+  top: -22px; left: 18px;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--mochi-white);
+  border: 3px solid var(--navy);
+  font-family: var(--font-pop);
+  font-size: 1rem;
+  box-shadow: 0 4px 0 0 var(--navy);
+}
+.feature h3 {
+  font-family: var(--font-pop);
+  font-size: 1.2rem;
+  margin: 0.2rem 0 0;
+  color: var(--navy);
+}
+.feature p {
+  font-size: 0.98rem;
+  line-height: 1.85;
+  color: var(--ink);
+  margin: 0;
+}
+.feature .icon {
+  width: 64px; height: 64px;
+  image-rendering: pixelated;
+}
+
+/* === CARDS showcase === */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 720px) {
+  .cards { grid-template-columns: 1fr; gap: 1.4rem; }
+}
+.oracle {
+  --card-bg: var(--surface);
+  --card-accent: var(--mint-deep);
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border: 3px solid var(--navy);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  box-shadow: var(--shadow-ink);
+  transform-style: preserve-3d;
+  perspective: 800px;
+  transition: transform 220ms ease;
+  overflow: hidden;
+}
+.oracle::before {
+  content: "";
+  position: absolute;
+  inset: 8px;
+  border: 2px dashed var(--card-accent);
+  border-radius: 12px;
+  pointer-events: none;
+  opacity: 0.65;
+}
+.oracle:hover { transform: translateY(-10px) rotate(-2deg); }
+.oracle .art {
+  display: grid;
+  place-items: center;
+}
+.oracle .art img {
+  max-width: 64%;
+  max-height: 80%;
+  image-rendering: pixelated;
+  filter: drop-shadow(3px 3px 0 var(--navy));
+}
+.oracle .meta {
+  display: grid;
+  gap: 0.2rem;
+  text-align: center;
+  padding: 0.4rem 0 0.2rem;
+  border-top: 2px solid var(--card-accent);
+}
+.oracle .genre {
+  font-family: var(--font-pop);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: var(--card-accent);
+}
+.oracle .name {
+  font-family: var(--font-pop);
+  font-size: 1rem;
+  color: var(--navy);
+}
+.oracle.care     { --card-bg: #a3cdbf; --card-accent: var(--navy); }
+.oracle.mood     { --card-bg: #aaa3cd; --card-accent: var(--navy); }
+.oracle.incident { --card-bg: #8cdcff; --card-accent: var(--navy); }
+
+/* === STILL GALLERY === */
+.stills {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.8rem;
+}
+.still {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border: 3px solid var(--navy);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+  box-shadow: 0 4px 0 0 var(--navy);
+}
+.still:hover {
+  transform: translateY(-4px) rotate(1deg);
+  box-shadow: 0 8px 0 0 var(--navy);
+}
+.still img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.still::after {
+  content: "";
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 3px, rgba(42,38,38,0.06) 3px 4px);
+  pointer-events: none;
+}
+
+/* === MOCHINEKO LINEUP === */
+.lineup {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  padding: 1.4rem;
+  background: var(--surface);
+  border: 3px dashed var(--accent);
+  border-radius: var(--radius-lg);
+  margin-top: 2rem;
+}
+.lineup img {
+  width: 72px;
+  height: auto;
+  image-rendering: pixelated;
+  animation: bop 2.4s ease-in-out infinite;
+}
+.lineup img:nth-child(2) { animation-delay: 0.1s; }
+.lineup img:nth-child(3) { animation-delay: 0.2s; }
+.lineup img:nth-child(4) { animation-delay: 0.3s; }
+.lineup img:nth-child(5) { animation-delay: 0.4s; }
+.lineup img:nth-child(6) { animation-delay: 0.5s; }
+.lineup img:nth-child(7) { animation-delay: 0.6s; }
+.lineup img:nth-child(8) { animation-delay: 0.7s; }
+@keyframes bop {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px) rotate(-4deg); }
+}
+
+/* === FOOTER === */
+.footer {
+  margin-top: 6rem;
+  padding: 2.4rem 1.6rem;
+  text-align: center;
+  border-top: 2px dashed var(--navy);
+  color: var(--navy);
+  font-size: 0.9rem;
+  display: grid;
+  gap: 0.9rem;
+}
+.footer .links {
+  display: flex; justify-content: center; flex-wrap: wrap;
+  gap: 1.4rem;
+  font-family: var(--font-pop);
+}
+.footer a { color: var(--navy); text-decoration: none; border-bottom: 2px solid transparent; }
+.footer a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+.footer .credit { opacity: 0.7; }
+
+/* === scroll reveal === */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="particle-field" aria-hidden="true" id="particleField"></div>
+
+<main class="page">
+
+  <header class="ribbon" role="banner">
+    <a class="brand" href="#top" aria-label="ﾓﾁﾓﾁﾈｺﾁｬﾝ トップ">
+      <img src="./assets/img/mini-anim.gif" alt="" />
+      <span>ﾓﾁﾓﾁﾈｺﾁｬﾝ</span>
+    </a>
+    <nav class="links" aria-label="サイト内ナビゲーション">
+      <a href="#about">ゲームについて</a>
+      <a href="#features">特徴</a>
+      <a href="#cards">カード</a>
+      <a href="#gallery">ギャラリー</a>
+      <a href="#event">出展情報</a>
+    </nav>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <div class="hero-art" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <span class="hero-tag">
+        <span class="dot"></span>
+        盆栽育成カードゲーム
+      </span>
+      <h1>
+        ﾓﾁﾓﾁﾈｺﾁｬﾝ
+        <small>M O C H I M O C H I &nbsp; N E K O C H A N</small>
+      </h1>
+      <p class="hero-lede">
+        ある日、盆栽の庭に <em>ﾓﾁﾓﾁﾈｺﾁｬﾝ</em> が現れ、<br />
+        静かな手入れの時間が、少しずつ <em>侵食</em> されていく。
+      </p>
+      <p class="hero-lede" style="font-size:0.98rem; opacity:0.85;">
+        プレイヤーは盆栽を世話しながら、この奇妙な存在と同じ庭で時間を重ねていく。
+        短い周回を繰り返して、育成と異変の両方を味わう小品。
+      </p>
+      <div class="cta-row">
+        <a class="btn primary" href="#event">出展情報を見る</a>
+        <a class="btn ghost" href="https://forms.gle/zPkefuQuWV4nt5K67" target="_blank" rel="noopener">お問い合わせ</a>
       </div>
-      <nav class="site-nav">
-        <a href="#concept">Concept</a>
-        <a href="#gameplay">Gameplay</a>
-        <a href="#event">Event</a>
-        <a href="#status">Status</a>
-      </nav>
+    </div>
+  </section>
+
+  <!-- ================= EVENT ================= -->
+  <section class="event reveal" id="event" aria-labelledby="event-title">
+    <div class="event-glyph" aria-hidden="true">
+      <img src="./assets/img/mochineko/a.gif" alt="" />
+    </div>
+    <div class="event-body">
+      <span class="event-eyebrow">EXHIBITION</span>
+      <h2 class="event-title" id="event-title">
+        ぶらり川越 GAME DIGG2 に出展します
+      </h2>
+      <div class="event-meta">
+        <span><strong>日時</strong> 2026/04/25 (土) 11:00 – 17:00</span>
+        <span><strong>会場</strong> 蓮馨寺 / りそなコエドテラス / コエトコ</span>
+        <span><strong>ブース</strong> D-02</span>
+      </div>
+    </div>
+    <div class="event-cta">
+      <a class="btn" href="https://burarikawagoegamedigg.jp/" target="_blank" rel="noopener">
+        公式サイト
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="section reveal" id="about" aria-labelledby="about-title">
+    <header class="section-head">
+      <span class="section-eyebrow">ABOUT</span>
+      <h2 class="section-title" id="about-title">世話と、奇妙な同居</h2>
+      <span class="divider" aria-hidden="true"></span>
     </header>
+    <div class="about">
+      <div>
+        <p>
+          <strong>ﾓﾁﾓﾁﾈｺﾁｬﾝ</strong> は、盆栽を育てながら静かな庭を少しずつ
+          <strong>侵食</strong> されていく、ちいさなカードゲーム。
+        </p>
+        <p>
+          一枚のカードを選ぶ。 盆栽に水をやる、葉を剪定する、
+          朝陽が差し込む、ねこちゃんがやってくる ―
+          何を受け入れて何を避けるか決めながら、同じ庭で時間を重ねていく。
+        </p>
+        <p>
+          失敗は罰ではなく、予想外の盆栽ができることも体験の一部。
+          たどり着いた結末ごとに、異なるエピローグがそっと待っています。
+        </p>
+        <dl class="about-specs">
+          <div class="spec"><dt>GENRE</dt><dd>盆栽育成カードゲーム</dd></div>
+          <div class="spec"><dt>LOOP</dt><dd>30秒 – 1分</dd></div>
+          <div class="spec"><dt>CLEAR</dt><dd>5 – 20分</dd></div>
+          <div class="spec"><dt>STATUS</dt><dd>出展プレビュー版</dd></div>
+        </dl>
+      </div>
+      <div class="about-bonsai" aria-hidden="true">
+        <div class="layer pot"></div>
+        <div class="layer soil"></div>
+        <div class="layer trunk"></div>
+        <div class="layer branch-l"></div>
+        <div class="layer branch-r"></div>
+        <div class="cat"></div>
+        <div class="cat-mini"></div>
+      </div>
+    </div>
+  </section>
 
-    <main>
-      <section class="hero">
-        <div class="hero-copy">
-          <p class="eyebrow">盆栽とﾓﾁﾓﾁﾈｺﾁｬﾝのカワイイローグライト</p>
-          <h1>
-            盆栽とﾓﾁﾓﾁﾈｺﾁｬﾝ<br />
-            <span>――侵食</span>
-          </h1>
-          <p class="lead">
-            1枚引いて、1年進む。手入れ、環境、変化のカードが盆栽の状態を揺らす。カワイイのに、侵食。
-          </p>
-          <div class="hero-actions" aria-label="展示情報">
-            <span class="pill">ぶらり川越 GAME DIGG2 出展決定</span>
-            <span class="pill">2026/04/25(土) 11:00-17:00</span>
-          </div>
-          <div class="hero-meta">
-            <span>ジャンル: 盆栽育成ローグライト</span>
-            <span>プラットフォーム: Web(予定)</span>
-          </div>
-        </div>
-        <div class="hero-art" aria-hidden="true">
-          <img class="hero-bg" src="assets/img/bg-title.png" alt="" />
-          <img
-            class="bonsai"
-            src="assets/img/bonsai-level2.png"
-            alt=""
-          />
-          <img
-            class="card-front"
-            src="assets/img/card-incident-front-chan.png"
-            alt=""
-          />
-          <img class="card-back" src="assets/img/card-care-back.png" alt="" />
-        </div>
-      </section>
+  <!-- ================= FEATURES ================= -->
+  <section class="section reveal" id="features" aria-labelledby="features-title">
+    <header class="section-head">
+      <span class="section-eyebrow">FEATURES</span>
+      <h2 class="section-title" id="features-title">みどころ</h2>
+      <span class="divider" aria-hidden="true"></span>
+    </header>
+    <div class="features">
+      <article class="feature">
+        <span class="num">1</span>
+        <img class="icon" src="./assets/img/card/back-care.png" alt="" />
+        <h3>3ジャンルのカード選択</h3>
+        <p>
+          世話 / 環境 / 変化 ― 3つのカードから1枚を選んでイベントを起こす。
+          裏面からは、ジャンルしか読み取れない。
+        </p>
+      </article>
+      <article class="feature">
+        <span class="num">2</span>
+        <img class="icon" src="./assets/img/card/back-mood.png" alt="" />
+        <h3>短く、何度でも遊べる周回</h3>
+        <p>
+          1周30秒〜1分、クリアまで5〜20分。
+          ランダム性をどう御すかが毎回のテーマになる、軽量なループ。
+        </p>
+      </article>
+      <article class="feature">
+        <span class="num">3</span>
+        <img class="icon" src="./assets/img/card/back-incident.png" alt="" />
+        <h3>たどり着く先で変わる結末</h3>
+        <p>
+          盆栽とﾓﾁﾓﾁﾈｺﾁｬﾝ、それぞれの結末がエピローグに分岐する。
+          失敗も、ひとつの風景として拾いあげられる設計。
+        </p>
+      </article>
+    </div>
+  </section>
 
-      <section id="concept" class="section">
-        <div class="section-title">
-          <p>Concept</p>
-          <h2>――侵食</h2>
+  <!-- ================= CARDS ================= -->
+  <section class="section reveal" id="cards" aria-labelledby="cards-title">
+    <header class="section-head">
+      <span class="section-eyebrow">CARDS</span>
+      <h2 class="section-title" id="cards-title">3種のオラクルカード</h2>
+      <span class="divider" aria-hidden="true"></span>
+    </header>
+    <div class="cards">
+      <article class="oracle care">
+        <div class="art"><img src="./assets/img/card/care-prune.png" alt="剪定" /></div>
+        <div class="meta">
+          <span class="genre">CARE &nbsp;/&nbsp; 世話</span>
+          <span class="name">剪定</span>
         </div>
-        <div class="grid">
-          <article class="panel">
-            <h3>カードで進む短い周回</h3>
-            <p>
-              1ターンで年齢が進み、カード効果が盆栽に刻まれる。少ない手数でも姿が変化する設計。
-            </p>
-          </article>
-          <article class="panel">
-            <h3>育成と侵食の二律</h3>
-            <p>
-              手入れで育つ盆栽と、ﾓﾁﾓﾁﾈｺﾁｬﾝの侵食。均衡を保つほど、静かな輝きが訪れる。
-            </p>
-          </article>
-          <article class="panel">
-            <h3>出来事を確かめる</h3>
-            <p>
-              選択の結果を1枚ずつ確認して、次のカードへ進む。短い周回で結末に近づく。
-            </p>
-          </article>
+      </article>
+      <article class="oracle mood">
+        <div class="art"><img src="./assets/img/card/mood-sunny-morning.png" alt="朝陽" /></div>
+        <div class="meta">
+          <span class="genre">MOOD &nbsp;/&nbsp; 環境</span>
+          <span class="name">朝陽が差す</span>
         </div>
-      </section>
+      </article>
+      <article class="oracle incident">
+        <div class="art"><img src="./assets/img/card/incident-chan.png" alt="ﾓﾁﾓﾁﾈｺﾁｬﾝ登場" /></div>
+        <div class="meta">
+          <span class="genre">INCIDENT &nbsp;/&nbsp; 変化</span>
+          <span class="name">ねこちゃん襲来</span>
+        </div>
+      </article>
+    </div>
 
-      <section id="gameplay" class="section">
-        <div class="section-title">
-          <p>Gameplay</p>
-          <h2>選ぶだけで進む、ループの流れ</h2>
-        </div>
-        <ol class="timeline">
-          <li>
-            <span class="step">01</span>
-            <div>
-              <h3>カードを引く</h3>
-              <p>世話、環境、変化のカードから1枚を選ぶ</p>
-            </div>
-          </li>
-          <li>
-            <span class="step">02</span>
-            <div>
-              <h3>盆栽の状態が変化</h3>
-              <p>剪定と水やり、ﾓﾁﾓﾁﾈｺﾁｬﾝの増加に影響</p>
-            </div>
-          </li>
-          <li>
-            <span class="step">03</span>
-            <div>
-              <h3>出来事を確認する</h3>
-              <p>カードの結果を見届けて次の年へ</p>
-            </div>
-          </li>
-          <li>
-            <span class="step">04</span>
-            <div>
-              <h3>次の年へ</h3>
-              <p>短い周回で結末に近づく</p>
-            </div>
-          </li>
-        </ol>
-      </section>
+    <div class="lineup" aria-label="ﾓﾁﾓﾁﾈｺﾁｬﾝ 図鑑">
+      <img src="./assets/img/mochineko/a.gif" alt="" />
+      <img src="./assets/img/mochineko/b.gif" alt="" />
+      <img src="./assets/img/mochineko/c.gif" alt="" />
+      <img src="./assets/img/mochineko/d.gif" alt="" />
+      <img src="./assets/img/mochineko/e.gif" alt="" />
+      <img src="./assets/img/mochineko/f.gif" alt="" />
+      <img src="./assets/img/mochineko/g.gif" alt="" />
+      <img src="./assets/img/mochineko/h.gif" alt="" />
+    </div>
+  </section>
 
-      <section id="event" class="section">
-        <div class="section-title">
-          <p>Event</p>
-          <h2>ぶらり川越 GAME DIGG2に出展</h2>
-        </div>
-        <div class="event-card">
-          <div>
-            <h3>開催日</h3>
-            <p>2026/04/25(土) 11:00-17:00</p>
-          </div>
-          <div>
-            <h3>会場</h3>
-            <p>蓮馨寺 / りそなコエドテラス / コエトコ</p>
-          </div>
-          <div>
-            <h3>ブース</h3>
-            <p>詳細は後日公開</p>
-          </div>
-          <div class="event-links">
-            <a
-              class="event-link"
-              href="https://burarikawagoegamedigg.jp/2026"
-              target="_blank"
-              rel="noreferrer"
-            >
-              イベント公式サイト
-            </a>
-            <a
-              class="event-link accent"
-              href="https://forms.gle/zPkefuQuWV4nt5K67"
-              target="_blank"
-              rel="noreferrer"
-            >
-              お問い合わせフォーム
-            </a>
-          </div>
-        </div>
-      </section>
+  <!-- ================= GALLERY ================= -->
+  <section class="section reveal" id="gallery" aria-labelledby="gallery-title">
+    <header class="section-head">
+      <span class="section-eyebrow">GALLERY</span>
+      <h2 class="section-title" id="gallery-title">庭の記憶 (スチル)</h2>
+      <span class="divider" aria-hidden="true"></span>
+    </header>
+    <div class="stills">
+      <figure class="still"><img src="./assets/img/still/006.png" alt="" loading="lazy" /></figure>
+      <figure class="still"><img src="./assets/img/still/003.png" alt="" loading="lazy" /></figure>
+      <figure class="still"><img src="./assets/img/still/002.png" alt="" loading="lazy" /></figure>
+      <figure class="still"><img src="./assets/img/still/008.png" alt="" loading="lazy" /></figure>
+      <figure class="still"><img src="./assets/img/still/001.png" alt="" loading="lazy" /></figure>
+      <figure class="still"><img src="./assets/img/still/005.png" alt="" loading="lazy" /></figure>
+      <figure class="still"><img src="./assets/img/still/004.png" alt="" loading="lazy" /></figure>
+      <figure class="still"><img src="./assets/img/still/007.png" alt="" loading="lazy" /></figure>
+      <figure class="still"><img src="./assets/img/still/009.png" alt="" loading="lazy" /></figure>
+      <figure class="still"><img src="./assets/img/still/010.png" alt="" loading="lazy" /></figure>
+    </div>
+  </section>
 
-      <section id="status" class="section">
-        <div class="section-title">
-          <p>Status</p>
-          <h2>制作状況</h2>
-        </div>
-        <div class="status-grid">
-          <div class="status-card">
-            <p class="status-label">現在</p>
-            <h3>コアゲームループ実装済み</h3>
-            <p>カード選択、状態更新、スチル確認、ED到達の流れを確認可能</p>
-          </div>
-          <div class="status-card">
-            <p class="status-label">次</p>
-            <h3>ローグライト性の強化</h3>
-            <p>カード種類拡張、周回ごとの変化、ランダムイベント拡充</p>
-          </div>
-          <div class="status-card">
-            <p class="status-label">予定</p>
-            <h3>公開に向けた最終調整</h3>
-            <p>バランス調整、演出強化、公開用ビルドの整備</p>
-          </div>
-        </div>
-      </section>
-    </main>
+  <!-- ================= FINAL CTA ================= -->
+  <section class="section reveal" aria-labelledby="play-title">
+    <div class="about" style="text-align:center; display:grid; place-items:center; gap:1.4rem;">
+      <span class="section-eyebrow">COME SEE US</span>
+      <h2 class="section-title" id="play-title">庭で、会いましょう。</h2>
+      <p style="max-width: 40rem; line-height: 2; color: var(--navy); margin: 0;">
+        ﾓﾁﾓﾁﾈｺﾁｬﾝ は、2026/04/25 ぶらり川越 GAME DIGG2 の会場で体験できます。
+        ブース D-02 でそっとお待ちしています。 ご質問・ご連絡もお気軽に。
+      </p>
+      <div class="cta-row" style="justify-content:center;">
+        <a class="btn primary" href="#event">出展情報を見る</a>
+        <a class="btn" href="https://forms.gle/zPkefuQuWV4nt5K67" target="_blank" rel="noopener">お問い合わせ</a>
+      </div>
+    </div>
+  </section>
 
-    <footer class="site-footer">
-      <p class="footer-note">© mcmcnkcn</p>
-    </footer>
-  </body>
+  <footer class="footer">
+    <div class="links">
+      <a href="#event">EXHIBITION</a>
+      <a href="https://burarikawagoegamedigg.jp/" target="_blank" rel="noopener">GAME DIGG2</a>
+      <a href="https://forms.gle/zPkefuQuWV4nt5K67" target="_blank" rel="noopener">CONTACT</a>
+    </div>
+    <div class="credit">
+      © ﾓﾁﾓﾁﾈｺﾁｬﾝ
+    </div>
+  </footer>
+
+</main>
+
+<script>
+  // === ambient particles ===
+  (function () {
+    const field = document.getElementById('particleField');
+    if (!field) return;
+    const kinds = ['paw', 'shine', 'star'];
+    const count = window.matchMedia('(max-width: 720px)').matches ? 10 : 18;
+    for (let i = 0; i < count; i++) {
+      const el = document.createElement('img');
+      const kind = kinds[i % kinds.length];
+      el.src = './assets/img/particle/' + kind + '.png';
+      el.alt = '';
+      el.className = 'particle ' + kind;
+      el.style.left = (Math.random() * 100) + 'vw';
+      el.style.animationDuration = (12 + Math.random() * 18) + 's';
+      el.style.animationDelay = (-Math.random() * 20) + 's';
+      el.style.setProperty('transform', 'translateY(100vh)');
+      field.appendChild(el);
+    }
+  })();
+
+  // === scroll reveal ===
+  (function () {
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(e => e.classList.add('is-in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(e => io.observe(e));
+  })();
+
+  // === smooth anchor scroll ===
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      const id = a.getAttribute('href').slice(1);
+      const target = id ? document.getElementById(id) : null;
+      if (!target) return;
+      ev.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
 </html>
