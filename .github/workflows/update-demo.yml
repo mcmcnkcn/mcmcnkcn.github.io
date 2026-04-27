@@ -1,0 +1,77 @@
+name: Update Demo
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: mcmcnkcn リポジトリの branch / tag / sha
+        required: true
+        default: main
+
+permissions:
+  contents: write
+
+jobs:
+  update-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pages repository
+        uses: actions/checkout@v4
+
+      - name: Generate source repository token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.MCMCNKCN_APP_ID }}
+          private-key: ${{ secrets.MCMCNKCN_APP_PRIVATE_KEY }}
+          owner: mcmcnkcn
+          repositories: mcmcnkcn
+
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+        with:
+          repository: mcmcnkcn/mcmcnkcn
+          ref: ${{ inputs.ref }}
+          token: ${{ steps.app-token.outputs.token }}
+          path: source
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.16.0
+          cache: npm
+          cache-dependency-path: source/package-lock.json
+
+      - name: Install dependencies
+        working-directory: source
+        run: npm ci
+
+      - name: Build demo
+        working-directory: source
+        run: npm run build:demo
+
+      - name: Replace demo output
+        run: |
+          rm -rf demo
+          mkdir -p demo
+          cp -R source/dist/mcmcnkcn/browser/. demo/
+
+      - name: Resolve source revision
+        id: source-revision
+        working-directory: source
+        run: echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push demo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add demo
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: demoを更新する (${SOURCE_SHA})"
+          git push
+        env:
+          SOURCE_SHA: ${{ steps.source-revision.outputs.sha }}
