@@ -1,0 +1,55 @@
+name: Deploy Site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Assemble public files
+        run: |
+          rm -rf public-site
+          mkdir -p public-site
+          cp index.html public-site/
+          cp favicon.ico public-site/
+          cp favicon-16x16.png public-site/
+          cp favicon-32x32.png public-site/
+          cp apple-touch-icon.png public-site/
+          cp android-chrome-192x192.png public-site/
+          cp android-chrome-512x512.png public-site/
+          cp -R assets public-site/assets
+          cp -R demo public-site/demo
+          touch public-site/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public-site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

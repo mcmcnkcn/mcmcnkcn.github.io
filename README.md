@@ -3,6 +3,7 @@
 ## demo更新
 
 `/demo` は `mcmcnkcn` リポジトリの `build:demo` 出力を取り込んで更新する
+サイト本体の公開は GitHub Pages の GitHub Actions deploy workflow で行う
 
 ### 前提
 
