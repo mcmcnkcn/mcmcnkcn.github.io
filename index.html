@@ -5,12 +5,17 @@
 <title>ﾓﾁﾓﾁﾈｺﾁｬﾝ ― 盆栽育成カードゲーム</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta name="theme-color" content="#a2cdc9" />
-<meta name="description" content="ある日、盆栽の庭に ﾓﾁﾓﾁﾈｺﾁｬﾝ が現れ、静かな手入れの時間が少しずつ侵食されていく ― 盆栽育成カードゲーム『ﾓﾁﾓﾁﾈｺﾁｬﾝ』特設サイト。 2026/04/25 ぶらり川越 GAME DIGG2 出展 (ブース D-02)。" />
+<meta name="description" content="ある日、盆栽の庭に ﾓﾁﾓﾁﾈｺﾁｬﾝ が現れ、静かな手入れの時間が少しずつ侵食されていく ― 盆栽育成カードゲーム『ﾓﾁﾓﾁﾈｺﾁｬﾝ』特設サイト。 2026/04/25 ぶらり川越 GAME DIGG2 出展作。 体験版も公開中。" />
 <meta property="og:title" content="ﾓﾁﾓﾁﾈｺﾁｬﾝ" />
-<meta property="og:description" content="盆栽育成カードゲーム。 2026/04/25 ぶらり川越 GAME DIGG2 出展 (D-02)" />
-<meta property="og:image" content="./assets/img/still/006.png" />
+<meta property="og:description" content="盆栽育成カードゲーム。 2026/04/25 ぶらり川越 GAME DIGG2 出展作。 体験版公開中。" />
+<meta property="og:url" content="https://mcmcnkcn.github.io/" />
+<meta property="og:image" content="https://mcmcnkcn.github.io/assets/img/still/006.png" />
+<meta property="og:image:alt" content="ﾓﾁﾓﾁﾈｺﾁｬﾝのゲーム画面スチル" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ﾓﾁﾓﾁﾈｺﾁｬﾝ" />
+<meta name="twitter:description" content="盆栽育成カードゲーム。 2026/04/25 ぶらり川越 GAME DIGG2 出展作。 体験版公開中。" />
+<meta name="twitter:image" content="https://mcmcnkcn.github.io/assets/img/still/006.png" />
 <link rel="icon" type="image/x-icon" href="./favicon.ico" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
 
@@ -345,6 +350,12 @@ img {
   margin: 0;
   line-height: 1.3;
 }
+.event-copy {
+  margin: 0.2rem 0 0;
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: var(--navy);
+}
 .event-meta {
   display: flex; flex-wrap: wrap; gap: 0.4rem 1rem;
   font-size: 0.95rem;
@@ -354,6 +365,41 @@ img {
 .event-meta strong { font-family: var(--font-pop); color: var(--accent); }
 .event-cta { text-align: right; }
 @media (max-width: 760px) { .event-cta { text-align: center; } }
+.event-links {
+  display: grid;
+  gap: 0.8rem;
+}
+.event-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+}
+.event-demo-note {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--navy) 78%, white);
+}
+.event-qr {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  margin-top: 0.2rem;
+}
+.event-qr img {
+  width: 132px;
+  height: 132px;
+  border: 3px solid var(--navy);
+  border-radius: 14px;
+  background: var(--surface);
+  image-rendering: auto;
+  box-shadow: 0 4px 0 0 var(--navy);
+}
+.event-qr figcaption {
+  font-size: 0.78rem;
+  color: var(--navy);
+}
 
 /* === SECTION shared === */
 .section { margin: 6rem 0; position: relative; }
@@ -760,8 +806,11 @@ img {
     <div class="event-body">
       <span class="event-eyebrow">EXHIBITION</span>
       <h2 class="event-title" id="event-title">
-        ぶらり川越 GAME DIGG2 に出展します
+        ぶらり川越 GAME DIGG2 に出展しました
       </h2>
+      <p class="event-copy">
+        2026/04/25 の展示は無事終了しました。 当日展示した体験版は、そのままブラウザでも遊べます。
+      </p>
       <div class="event-meta">
         <span><strong>日時</strong> 2026/04/25 (土) 11:00 – 17:00</span>
         <span><strong>会場</strong> 蓮馨寺 / りそなコエドテラス / コエトコ</span>
@@ -769,9 +818,21 @@ img {
       </div>
     </div>
     <div class="event-cta">
-      <a class="btn" href="https://burarikawagoegamedigg.jp/" target="_blank" rel="noopener">
-        公式サイト
-      </a>
+      <div class="event-links">
+        <a class="btn event-link primary" href="https://mcmcnkcn.github.io/demo/" target="_blank" rel="noopener">
+          デモを遊ぶ
+        </a>
+        <a class="btn event-link" href="https://burarikawagoegamedigg.jp/" target="_blank" rel="noopener">
+          公式サイト
+        </a>
+        <p class="event-demo-note">
+          デモURL: <a href="https://mcmcnkcn.github.io/demo/" target="_blank" rel="noopener">mcmcnkcn.github.io/demo/</a>
+        </p>
+        <figure class="event-qr">
+          <img src="./assets/img/demo-qr.png" alt="体験版デモページへのQRコード" />
+          <figcaption>体験版へアクセス</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
