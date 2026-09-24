@@ -10,9 +10,15 @@ on:
 
 permissions:
   contents: write
+  actions: write
+
+concurrency:
+  group: update-mochi
+  cancel-in-progress: false
 
 jobs:
   update-demo:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
 
     steps:
@@ -49,24 +55,29 @@ jobs:
 
       - name: Build demo
         working-directory: source
-        run: npm run build:demo
+        run: |
+          npx ng build --configuration production --base-href /games/mcmcnkcn/play/
+          npm run copy:licenses
 
       - name: Replace demo output
         run: |
-          rm -rf demo
-          mkdir -p demo
-          cp -R source/dist/mcmcnkcn/browser/. demo/
+          rm -rf games/mcmcnkcn/play
+          mkdir -p games/mcmcnkcn/play
+          cp -R source/dist/mcmcnkcn/browser/. games/mcmcnkcn/play/
 
       - name: Resolve source revision
         id: source-revision
         working-directory: source
         run: echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
+      - name: Verify site and game before committing
+        run: npm test
+
       - name: Commit and push demo
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add demo
+          git add games/mcmcnkcn/play
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
@@ -75,3 +86,8 @@ jobs:
           git push
         env:
           SOURCE_SHA: ${{ steps.source-revision.outputs.sha }}
+
+      - name: Publish updated game
+        run: gh workflow run deploy-site.yml --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}

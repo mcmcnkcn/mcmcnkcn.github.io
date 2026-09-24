@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ja" data-page="{{PAGE}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#355368">
+  <script>
+    document.documentElement.classList.add('boot-pending');
+    window.showcaseBootTimer=setTimeout(()=>document.documentElement.classList.remove('boot-pending'),8000);
+  </script>
+  {{META}}
+  <link rel="icon" type="image/svg+xml" href="./assets/miconeco.svg">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <div class="sky" aria-hidden="true"><svg class="cloudscape" viewBox="0 0 1480 1000" preserveAspectRatio="xMidYMin slice"><path fill="#fffdf5" d="M-50 215Q-28 117 75 144Q70 51 181 73Q196-11 307 32Q351-50 446 18Q523-32 588 14Q674-27 740 7Q806-27 892 14Q957-32 1034 18Q1129-50 1173 32Q1284-11 1299 73Q1410 51 1405 144Q1508 117 1530 215V2000H-50Z"/></svg><div class="paint"></div><div id="petals"></div></div>
+  <header class="masthead">
+    <h1 id="brand" class="logo-ready" aria-label="Mico mico nekochan games">{{LOGO}}</h1>
+  </header>
+  <button id="motion" class="round-control" aria-pressed="false" aria-label="アニメーションを止める">動き ❚❚</button>
+  <main id="shelf" aria-label="ゲーム紹介" tabindex="0">
+    <div id="games" class="games">{{GAMES}}</div>
+  </main>
+  <nav class="shelf-nav" aria-label="ゲームを選ぶ">
+    <button data-step="-1" aria-label="前のゲームへ">←</button>
+    <button data-game="mochi" aria-label="ﾓﾁﾓﾁﾈｺﾁｬﾝへ" aria-current="true">01</button>
+    <button data-game="nyan" aria-label="にゃんそーとへ">02</button>
+    <button data-game="tower" aria-label="キャットタワーへ">03</button>
+    <button data-step="1" aria-label="次のゲームへ">→</button>
+  </nav>
+  <footer class="footer"><svg class="footer-edge" aria-hidden="true" preserveAspectRatio="none"><path fill="#355368"/></svg><button class="footer-cat footer-mochi" aria-label="ﾓﾁﾈｺを跳ねさせる(縦画面では先頭へ)"><img src="./assets/mochi-cat.png" alt=""></button><small>© Mico mico nekochan games. All rights reserved.</small><div><a href="https://forms.gle/YzqbX4imrMaXjn2p9" target="_blank" rel="noopener noreferrer">お問い合わせ ↗</a><button id="privacy-link">プライバシーポリシー</button></div><button class="footer-cat footer-nyan" aria-label="にゃんそ猫を跳ねさせる(縦画面では先頭へ)"><img src="./assets/nyan-cat.png" alt=""></button></footer>
+  <dialog id="detail" {{DETAIL_OPEN}} aria-labelledby="detail-title"><a href="/" class="close" id="close-detail" aria-label="ゲーム一覧に戻る">閉じる ×</a><div id="detail-host">{{DETAIL}}</div></dialog>
+  <dialog id="privacy" aria-labelledby="privacy-title">
+    <form method="dialog"><button class="close" aria-label="閉じる">閉じる ×</button></form>
+    <div class="policy"><p class="eyebrow">MICO MICO NEKOCHAN GAMES</p><h2 id="privacy-title">プライバシーポリシー</h2>
+    <p>Mico mico nekochan gamesは、このサイトの改善とゲームへの関心を把握するため、Google LLCが提供するGoogle Analytics 4を利用します。</p>
+    <h3>アクセス解析</h3><p>許可した場合にのみGoogleの解析プログラムを読み込み、Cookieによるブラウザの識別情報、閲覧ページ、参照元、端末・ブラウザ情報、ゲームのPLAYやお問い合わせリンクのクリックなどをGoogleへ送信します。 氏名・メールアドレス・お問い合わせの入力内容・ゲームのセーブデータは解析に送りません。 このサイトから広告向けの利用を許可する設定やUser-IDの設定は行いません。</p>
+    <p>Googleによるデータの扱いは<a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Googleの説明</a>と<a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>をご確認ください。</p>
+    <section class="consent-box"><h3>アクセス解析の許可</h3><p>許可しなくてもゲームの紹介・リンクは利用できます。 ここでいつでも変更できます。 許可を取り消すと、このサイト用の解析Cookieを削除し、ページを再読み込みして計測を停止します。 すでに送信されたデータを削除する操作ではありません。</p><p id="analytics-status" role="status">JavaScriptが無効の場合、解析は行いません。</p><div class="analytics-actions"><button data-analytics-choice="denied">許可しない</button><button data-analytics-choice="granted">許可する</button></div></section>
+    <h3>このブラウザに保存するもの</h3><p>アニメーションの表示設定とアクセス解析の許可・拒否をローカルストレージに保存します。 許可した場合は、このサイト用の解析Cookieも保存します。</p>
+    <h3>配信とお問い合わせ</h3><p>サイトはGitHub Pagesで配信しています。 配信事業者が通信に必要な情報を取り扱います。 お問い合わせはGoogleフォームを利用し、送信いただいた情報はお問い合わせへの対応に利用します。</p>
+    <h3>外部サイト</h3><p>「遊ぶ」から開くゲームは別のサイトです。 移動先のプライバシーポリシーが適用されます。 お問い合わせ窓口は<a href="https://forms.gle/YzqbX4imrMaXjn2p9" target="_blank" rel="noopener noreferrer">こちら(外部フォーム)</a>です。</p>
+    </div>
+  </dialog>
+  <aside id="analytics-notice" popover="manual" aria-label="アクセス解析の許可">
+    <p>サイト改善のため、アクセス解析を許可しますか？</p>
+    <div class="analytics-actions"><button data-analytics-choice="denied">許可しない</button><button data-analytics-choice="granted">許可する</button><button id="analytics-info">詳しく</button></div>
+  </aside>
+</body>
+</html>

@@ -1,26 +1,28 @@
-# mcmcnkcn.github.io
+# Mico mico nekochan games
 
-## demo更新
+サークルサイト https://mcmcnkcn.github.io/ 。 Node.js 22の標準機能で静的HTMLを生成する。 npm installは不要。
 
-`/demo` は `mcmcnkcn` リポジトリの `build:demo` 出力を取り込んで更新する
-サイト本体の公開は GitHub Pages の GitHub Actions deploy workflow で行う
+## 開発・公開
 
-### 前提
+```sh
+npm test
+python -m http.server 4178 --bind 127.0.0.1 --directory dist
+```
 
-- GitHub App を作成し、`mcmcnkcn` リポジトリへ install する
-- App の repository permission は `Contents: Read-only` だけ付与する
-- `mcmcnkcn.github.io` の Actions secrets に次を登録する
-  - `MCMCNKCN_APP_ID`
-  - `MCMCNKCN_APP_PRIVATE_KEY`
+http://127.0.0.1:4178/ で確認する。 `npm test` はビルドも実行する。 ビルドのみなら `npm run build`。
 
-### 実行方法
+`main` へのpushでGitHub Actionsが検証し、`dist/` をGitHub Pagesへ公開する。 `dist/` は毎回作り直すため、直接編集しない。
 
-1. `mcmcnkcn.github.io` の Actions から `Update Demo` を手動実行する
-2. `ref` に `mcmcnkcn` 側の branch / tag / sha を指定する
-3. workflow が `mcmcnkcn` を checkout して `npm ci` / `npm run build:demo` を実行する
-4. `source/dist/mcmcnkcn/browser` の中身で `/demo` を全置換して push する
+## 編集場所
 
-### 補足
+- `src/`: サイトの実装。 ゲーム情報・リンク・OGP設定は `src/games.js`
+- `assets/`: ロゴ・画像・フォント・OGP画像
+- `games/mcmcnkcn/play/`: モチネコ本体の配信用ビルド。 更新時に上書きされるため手編集しない
 
-- `/demo` 直下への手編集は次回更新時に上書きされる
-- demo の配信知識は `mcmcnkcn.github.io` 側にだけ置き、本家 `mcmcnkcn` には deploy 手順を持ち込まない
+サイト用フォントは文字を絞ったwoff2。 原稿を追加した場合は、文字の不足によるフォールバック表示を確認する。
+
+GA4は本番サイトで利用者の許可後だけ読み込む。 `page_view` を手動送信しているため、GA管理画面の拡張計測はオフにする。
+
+## モチネコ本体の更新
+
+Actionsの `Update Demo` をmainから実行し、`ref` にゲームリポジトリのbranch・tag・SHAを指定する。 ビルド・検証・取り込み・公開まで自動で行う。
