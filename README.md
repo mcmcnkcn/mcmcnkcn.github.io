@@ -25,4 +25,4 @@ GA4は本番サイトで利用者の許可後だけ読み込む。 `page_view` �
 
 ## モチネコ本体の更新
 
-Actionsの `Update Demo` をmainから実行し、`ref` にゲームリポジトリのbranch・tag・SHAを指定する。 ビルド・検証・取り込み・公開まで自動で行う。
+ゲームリポジトリの `main` へのpushで自動更新される。 ゲーム側のPublish Gameがビルドを取り込み、そのpushでこのサイトのDeploy Siteが公開する。 再実行はゲームリポジトリのActionsからPublish Gameを実行する。
