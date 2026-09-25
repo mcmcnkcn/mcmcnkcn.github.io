@@ -19,33 +19,3 @@ export function absolutePath(d){
   }
   return out;
 }
-const clamp=x=>Math.max(0,Math.min(1,x));
-function pulse(t,start,duration){const u=(t-start)/duration;return u<=0||u>=1?0:Math.sin(Math.PI*u)**2}
-function oscillate(t,start,duration){const u=(t-start)/duration;return u<=0||u>=1?0:Math.sin(u*Math.PI*5)*(1-u)**2*Math.min(1,u*12)}
-export function installMorph(root, originalRender){
-  const elements=[root.querySelector('#mascot-base > path'),...root.querySelectorAll('#ornament-left-streamers > path,#ornament-right-streamers > path')];
-  const paths=elements.map(el=>{const d=el.getAttribute('d');return{el,d,segments:absolutePath(d),box:el.getBBox()}});
-  return t=>{
-    originalRender(t);
-    paths.forEach(({el,d,segments,box},i)=>{
-      const cheek=-.6*pulse(t,.66,.34)+pulse(t,.96,.35)-.4*pulse(t,1.28,.31)+.17*pulse(t,1.59,.32);
-      const wave=oscillate(t,.8+(i%4)*.055,1.65);
-      const strength=i===0?cheek:wave;
-      if(Math.abs(strength)<1e-9){el.setAttribute('d',d);return}
-      const deform=(x,y)=>{
-        if(i===0){
-          // Local cheek bulge: ears and forehead are completely unaffected.
-          const w=clamp((y-345)/210),side=(x-785)/290;
-          return[x+side*52*w*strength,y+18*w*strength];
-        }
-        // Pin each paper segment's upper edge; displacement grows quadratically toward its tip.
-        const u=clamp((y-box.y)/box.height),direction=i<5?1:-1;
-        return[x+direction*42*u*u*strength,y+10*u*u*strength];
-      };
-      el.setAttribute('d',segments.map(([cmd,...coords])=>{
-        const values=[];for(let j=0;j<coords.length;j+=2)values.push(...deform(coords[j],coords[j+1]));
-        return cmd+' '+values.map(v=>v.toFixed(4)).join(' ');
-      }).join(' '));
-    });
-  };
-}

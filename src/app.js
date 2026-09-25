@@ -30,7 +30,6 @@ function releaseShowcase(){if(!document.documentElement.classList.contains('intr
 function startIntro(logo){
   const ns='http://www.w3.org/2000/svg',effects=document.createElementNS(ns,'svg');
   effects.classList.add('logo-effects');effects.setAttribute('viewBox','0 0 1280 720');effects.setAttribute('aria-hidden','true');
-  effects.innerHTML='<g fill="none" stroke-linecap="round"><path id="swoosh" d="M394 414C267 219 562 91 789 190C1034 297 945 520 672 521" stroke="#facfe7" stroke-width="6"/><path id="echo" d="M363 378C326 191 648 104 847 265" stroke="#c8e3ff" stroke-width="3"/></g><g id="dust"/><path id="lead" d="M0 0C-34-24-38-58-16-60L0-42L16-60C42-52 36-18 0 0" fill="#ffa7b1"/>';
   $('#brand').prepend(effects);
   const intro=createLogoIntro(logo,effects);let raf=0,done=false,elapsed=0,last=performance.now();
   $('#brand').classList.add('logo-ready');
