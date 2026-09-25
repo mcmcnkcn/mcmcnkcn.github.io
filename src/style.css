@@ -86,8 +86,13 @@ html.boot-pending #shelf,html.boot-pending .shelf-nav,html.boot-pending #brand{v
 .platforms span{display:flex;align-items:center;gap:4px}.platforms svg{width:23px;height:23px}
 .expanded .platforms{bottom:0}
 .hero,.close{text-decoration:none;color:inherit}
-#analytics-notice{position:fixed;inset:auto 16px 105px auto;width:min(390px,calc(100vw - 32px));margin:0;padding:18px;border:2px solid #355368;border-radius:18px;background:#fffdf5;color:#355368;box-shadow:4px 5px 0 #35536833;font:14px/1.7 Reading,sans-serif}
+#analytics-notice{position:fixed;inset:auto 16px 105px auto;width:min(390px,calc(100vw - 32px));margin:0;padding:20px 16px 8px;border:1px solid #35536855;border-radius:24px;background:#fffdf5;color:#355368;box-shadow:0 5px 0 #35536822;font:14px/1.8 Reading,sans-serif;text-align:center}
 #analytics-notice p{margin:0 0 12px}.analytics-actions{display:flex;flex-wrap:wrap;gap:10px}.analytics-actions button{padding:8px 14px;border:1px solid #355368;border-radius:24px;background:#edf3f4;color:#355368}.consent-box{padding:18px;border:1px solid #35536844;border-radius:12px}
+#analytics-notice .notice-cat{display:block;margin:0 auto 10px;object-fit:contain}
+#analytics-notice .analytics-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#analytics-notice .analytics-actions button{min-height:44px;background:#edf3f4;border-color:#35536866}
+#analytics-notice .analytics-actions button:hover{background:#deeaed}
+#analytics-info{min-height:44px;padding:8px 16px;background:transparent;text-decoration:underline;text-underline-offset:4px;font-size:12px}
 .hero svg{pointer-events:none}
 /* Hit-test the painted outline, not the rectangular link or its decorations. */
 .tile:not(.expanded):not(.preview) .hero{pointer-events:none}
