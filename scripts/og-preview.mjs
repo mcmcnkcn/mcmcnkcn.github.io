@@ -19,6 +19,11 @@ for(const game of [null,...games.filter(g=>!g.preview)]){
       .signature{position:absolute;right:36px;top:110px;width:410px;text-align:center}.signature svg{width:100%;height:auto}.signature p{font:22px Rounded;margin:28px 0 0}
     </style>${renderTile(game,games.indexOf(game),art,'',true)}<aside class="signature">${art.logo}<p>ブラウザで無料で遊べます</p></aside></html>`;
     await writeFile(root+`dist/__og/${id}.html`,html.replaceAll('./assets/','/assets/'));
+    if(id==='mochi'){
+      const play=html.replace(/<aside class="signature">[\s\S]*?<\/aside>/,'')
+        .replace('</style>','.tile.expanded{left:240px}</style>');
+      await writeFile(root+'dist/__og/mochi-play.html',play.replaceAll('./assets/','/assets/'));
+    }
     continue;
   }
   const html=`<!doctype html><html lang="ja"><meta charset="utf-8"><link rel="stylesheet" href="/style.css"><title>OG preview</title><style>

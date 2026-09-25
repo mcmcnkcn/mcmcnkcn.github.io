@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1790239034689,
+  "timestamp": 1790361531648,
   "index": "/games/mcmcnkcn/play/index.html",
   "assetGroups": [
     {
@@ -131,7 +131,8 @@
         "/games/mcmcnkcn/play/media/frame-pattern-night-YWG4PB66.png",
         "/games/mcmcnkcn/play/media/frame-pattern-sunny-EXJCERDH.png",
         "/games/mcmcnkcn/play/media/mini-anim-BH5XAJTB.gif",
-        "/games/mcmcnkcn/play/media/rotate-NUPCM2EN.gif"
+        "/games/mcmcnkcn/play/media/rotate-NUPCM2EN.gif",
+        "/games/mcmcnkcn/play/og-mochi.png"
       ],
       "patterns": []
     },
@@ -260,7 +261,7 @@
     "/games/mcmcnkcn/play/favicon-16x16.png": "b0b7296a3a2950dd0e4a0c7e917527df86d755cc",
     "/games/mcmcnkcn/play/favicon-32x32.png": "865d9d081fe7198b6b923be25e4431ae089fdca8",
     "/games/mcmcnkcn/play/favicon.ico": "8975c59a413c027d9c15dee1ee477040ca860d97",
-    "/games/mcmcnkcn/play/index.html": "e466c51b04e8bb83db2de55721f8b4c18f966022",
+    "/games/mcmcnkcn/play/index.html": "bc20e3e6910d3c3656f6be3b8a7a27a855e0a758",
     "/games/mcmcnkcn/play/main-SMSZBB6Z.js": "12630dc1e23bc65d983c7d806efe7cdd4550ae02",
     "/games/mcmcnkcn/play/manifest.webmanifest": "d8af3ed79fd6d1f8592f0ff66c6228304224f347",
     "/games/mcmcnkcn/play/media/MochiyPopPOne-Regular-Hankaku-P6IMFBWT.ttf": "b91aa9ed01090d735356a177037c91d978e6f4f1",
@@ -272,6 +273,7 @@
     "/games/mcmcnkcn/play/media/frame-pattern-sunny-EXJCERDH.png": "c31b83405c07137d327b5d5c8e8e2a3b147a287f",
     "/games/mcmcnkcn/play/media/mini-anim-BH5XAJTB.gif": "9e90c3b183c1e4a9f4126a679ec367f40ba666af",
     "/games/mcmcnkcn/play/media/rotate-NUPCM2EN.gif": "47de61e9a4cf3a71f4d4e32d4e36c341c366d0db",
+    "/games/mcmcnkcn/play/og-mochi.png": "051775fcfc9fac55543e6dc7765c4a1c8a4315d8",
     "/games/mcmcnkcn/play/styles-V73GHLRZ.css": "f7559f07efeab4c69cd18c6f987717a538ee69ee"
   },
   "navigationUrls": [
