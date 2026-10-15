@@ -26,6 +26,8 @@ for(const game of [null,...games.filter(g=>!g.preview)])test(`static HTML: ${gam
   assert.ok(html.includes(`rel="canonical" href="${meta.url}"`));
   assert.ok(html.includes(`property="og:image" content="${meta.image}"`));
   assert.ok(!html.includes('noindex'));
+  assert.ok(!html.includes('id="analytics-notice"'));
+  assert.ok(html.includes('data-analytics-choice="denied"'));
   assert.ok(!/\{\{[A-Z_]+\}\}/.test(html));
   if(game){
     assert.ok(html.includes('open data-static-detail'));

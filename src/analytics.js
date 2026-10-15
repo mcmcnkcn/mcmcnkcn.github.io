@@ -1,9 +1,9 @@
-// Basic opt-in: no Google script or requests until consent, on the public host only.
+// Analytics defaults on for new visitors; preserve stored opt-outs, public host only.
 export const measurementId='G-Q4Q5TFM9LW';
 const key='mico-analytics-v1';
 const production=location.origin==='https://mcmcnkcn.github.io';
-let consent=null,started=false,lastPage=null;
-try{consent=localStorage.getItem(key);}catch{}
+let consent='denied',started=false,lastPage=null;
+try{consent=localStorage.getItem(key)==='denied'?'denied':'granted';}catch{}
 const permitted=()=>production&&consent==='granted';
 function cleanURL(value){try{const url=new URL(value);return url.origin+url.pathname;}catch{return '';}}
 function start(){
@@ -34,12 +34,9 @@ function clearCookies(){
   }
 }
 export function initAnalytics(){
-  const notice=document.querySelector('#analytics-notice'),policy=document.querySelector('#privacy');
   const status=document.querySelector('#analytics-status');
   function update(){
-    status.textContent=(consent==='granted'?'許可しています':consent==='denied'?'許可していません':'未選択です')+(production?'':' (このプレビューでは送信しません)');
-    if(consent===null&&!policy.open){if(!notice.matches(':popover-open'))notice.showPopover();}
-    else notice.hidePopover();
+    status.textContent=(consent==='granted'?'解析はONです':'解析はOFFです')+(production?'':' (このプレビューでは送信しません)');
   }
   function choose(value){
     consent=value;try{localStorage.setItem(key,value);}catch{}
@@ -50,9 +47,6 @@ export function initAnalytics(){
     if(value==='denied'&&started)location.reload();
   }
   document.querySelectorAll('[data-analytics-choice]').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.analyticsChoice)));
-  document.querySelector('#analytics-info').addEventListener('click',()=>{notice.hidePopover();policy.showModal();});
-  policy.addEventListener('close',update);
-  document.querySelector('#privacy-link').addEventListener('click',()=>notice.hidePopover());
-  window.addEventListener('storage',event=>{if(event.key===key){if(started&&event.newValue!=='granted'){window['ga-disable-'+measurementId]=true;location.reload();return;}consent=event.newValue;start();pageView();update();}});
+  window.addEventListener('storage',event=>{if(event.key===key||event.key===null){const next=event.newValue==='denied'?'denied':'granted';if(started&&next==='denied'){window['ga-disable-'+measurementId]=true;clearCookies();location.reload();return;}consent=next;start();pageView();update();}});
   start();pageView();update();
 }
